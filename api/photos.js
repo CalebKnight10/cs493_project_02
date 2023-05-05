@@ -52,10 +52,10 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-async function getPhotoID(photoID) {
+async function getphotoId(photoId) {
   const [ results ] = await mysqlPool.query(
     'SELECT * FROM photos WHERE id = ?',
-    [ photoID ],
+    [ photoId ],
   );
   return results[0];
 }
@@ -63,9 +63,9 @@ async function getPhotoID(photoID) {
 /*
  * Route to fetch info about a specific photo.
  */
-router.get('/:photoID', async (req, res, next) => {
+router.get('/:photoId', async (req, res, next) => {
   try {
-    const photo = await getPhotoID(parseInt(req.params.id));
+    const photo = await getphotoId(parseInt(req.params.id));
     if (photo) {
       res.status(200).send(photo);
     } else {
@@ -78,54 +78,68 @@ router.get('/:photoID', async (req, res, next) => {
   }
 });
 
+async function updatePhoto(photoId, photo) {
+  const validatedPhoto = extractValidFields(
+    photo,
+    photoSchema
+  );
+  const [ result ] = await mysqlPool.query(
+    'UPDATE photos SET ? WHERE id = ?',
+    [ validatedPhoto, photoId ]
+  );
+  return result.affectedRows > 0;
+}
+
 /*
  * Route to update a photo.
  */
-router.put('/:photoID', function (req, res, next) {
-  const photoID = parseInt(req.params.photoID);
-  if (photos[photoID]) {
-
-    if (validateAgainstSchema(req.body, photoSchema)) {
-      /*
-       * Make sure the updated photo has the same businessid and userid as
-       * the existing photo.
-       */
-      const updatedPhoto = extractValidFields(req.body, photoSchema);
-      const existingPhoto = photos[photoID];
-      if (existingPhoto && updatedPhoto.businessid === existingPhoto.businessid && updatedPhoto.userid === existingPhoto.userid) {
-        photos[photoID] = updatedPhoto;
-        photos[photoID].id = photoID;
-        res.status(200).json({
-          links: {
-            photo: `/photos/${photoID}`,
-            business: `/businesses/${updatedPhoto.businessid}`
-          }
+router.put('/:photoId', async (req, res, next) => {
+  if(validateAgainstSchema(req.body, photoSchema)) {
+    try {
+      const updateConfirm = await updatePhoto(parseInt(req.params.id), req.body);
+      if(updateConfirm) {
+        res.status(200).send({
+          links: { 
+            photo: `/photos/${photoId}`, 
+            business: `/businesses/${businessid}`}
         });
       } else {
-        res.status(403).json({
-          error: "Updated photo cannot modify businessid or userid"
-        });
+        next();
       }
-    } else {
-      res.status(400).json({
-        error: "Request body is not a valid photo object"
+    } catch (err) {
+      res.status(500).send({
+        error: 'Not able to update photo.'
       });
     }
-
   } else {
-    next();
+    res.status(400).send({
+      error: 'Request body does not hold a valid photo'
+    });
   }
 });
+
+async function deletePhoto(photoId) {
+  const [ result ] = await mysqlPool.query(
+    'DELETE FROM photos WHERE id = ?',
+    [ businessid ]
+  );
+  return result.affectedRows > 0;
+}
 
 /*
  * Route to delete a photo.
  */
-router.delete('/:photoID', function (req, res, next) {
-  const photoID = parseInt(req.params.photoID);
-  if (photos[photoID]) {
-    photos[photoID] = null;
-    res.status(204).end();
-  } else {
-    next();
+router.delete('/:photoId', async (req, res, next) => {
+  try {
+    const deleteConfirm = await deletePhoto(parseInt(req.params.id));
+    if(deleteConfirm) {
+      res.status(204).end();
+    } else {
+        next();
+    }
+  } catch (err) {
+      res.status(500).send({
+        error: 'Not able to delete photo.'
+      });
   }
 });
