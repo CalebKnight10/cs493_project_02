@@ -1,0 +1,924 @@
+// Create business table
+    CREATE TABLE businesses (
+      id int(64) NOT NULL,
+      ownerid MEDIUMINT NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state CHAR(2) NOT NULL,
+      zip CHAR(5) NOT NULL,
+      phone VARCHAR(255) NOT NULL,
+      category VARCHAR(255) NOT NULL,
+      subcategory VARCHAR(255) NOT NULL,
+      website VARCHAR(255),
+      PRIMARY KEY (id),
+      INDEX idx_ownerid (ownerid)
+  );
+
+// All businesses info
+[
+    {
+      "id": 0,
+      "ownerid": 0,
+      "name": "Block 15",
+      "address": "300 SW Jefferson Ave.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-758-2077",
+      "category": "Restaurant",
+      "subcategory": "Brewpub",
+      "website": "http://block15.com"
+    },
+
+INSERT INTO businesses VALUES (
+    0,
+    0,
+    'Block 15',
+    '300 SW Jefferson Ave.',
+    'Corvallis,
+    'OR',
+    '97333',
+    '541-758-2077',
+    'Restaurant',
+    'Brewpub',
+    'https://block15.com'
+);
+
+INSERT INTO businesses SET 
+    id = 0,
+    ownerid = 0,
+    name = 'Block 15',
+    address = '300 SW Jefferson Ave.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-758-2077',
+    category = 'Restaurant',
+    subcategory = 'Brewpub',
+    website = 'http://block15.com';
+***
+    {
+      "id": 1,
+      "ownerid": 1,
+      "name": "Corvallis Brewing Supply",
+      "address": "119 SW 4th St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-758-1674",
+      "category": "Shopping",
+      "subcategory": "Brewing Supply",
+      "website": "http://www.lickspigot.com"
+    },
+
+INSERT INTO businesses SET 
+    id = 1,
+    ownerid = 1,
+    name = 'Corvallis Brewing Supply',
+    address = '119 SW 4th St..',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-758-1674',
+    category = 'Shopping',
+    subcategory = 'Brewing Supply',
+    website = 'http://www.lickspigot.com';
+***
+    {
+      "id": 2,
+      "ownerid": 2,
+      "name": "Robnett's Hardware",
+      "address": "400 SW 2nd St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-753-5531",
+      "category": "Shopping",
+      "subcategory": "Hardware"
+    },
+
+INSERT INTO businesses SET 
+    id = 2,
+    ownerid = 2,
+    name = 'Robnett''s Hardware',
+    address = '400 SW 2nd St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-758-5531',
+    category = 'Shopping',
+    subcategory = 'Hardware',
+    website = NULL;
+***
+
+    {
+      "id": 3,
+      "ownerid": 3,
+      "name": "First Alternative Co-op North Store",
+      "address": "2855 NW Grant Ave.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-452-3115",
+      "category": "Shopping",
+      "subcategory": "Groceries"
+    },
+
+INSERT INTO businesses SET 
+    id = 3,
+    ownerid = 3,
+    name = 'First Alternative Co-op North Store',
+    address = '2855 NW Grant Ave.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-452-3115',
+    category = 'Shopping',
+    subcategory = 'Groceries',
+    website = NULL;
+***
+    {
+      "id": 4,
+      "ownerid": 4,
+      "name": "WinCo Foods",
+      "address": "2335 NW Kings Blvd.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-753-7002",
+      "category": "Shopping",
+      "subcategory": "Groceries"
+    },
+
+INSERT INTO businesses SET 
+    id = 4,
+    ownerid = 4,
+    name = 'WinCo Foods',
+    address = '2335 NW Kings Blvd.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97330',
+    phone = '541-753-7002',
+    category = 'Shopping',
+    subcategory = 'Groceries',
+    website = NULL;
+***
+    {
+      "id": 5,
+      "ownerid": 5,
+      "name": "Fred Meyer",
+      "address": "777 NW Kings Blvd.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-753-9116",
+      "category": "Shopping",
+      "subcategory": "Groceries"
+    },
+
+INSERT INTO businesses SET 
+    id = 5,
+    ownerid = 5,
+    name = 'Fred Meyer',
+    address = '777 NW Kings Blvd.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97330',
+    phone = '541-753-9116',
+    category = 'Shopping',
+    subcategory = 'Groceries',
+    website = NULL;
+***
+    {
+      "id": 6,
+      "ownerid": 6,
+      "name": "Interzone",
+      "address": "1563 NW Monroe Ave.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-754-5965",
+      "category": "Restaurant",
+      "subcategory": "Coffee Shop"
+    },
+
+INSERT INTO businesses SET 
+    id = 6,
+    ownerid = 6,
+    name = 'Interzone',
+    address = '1563 NW Monroe Ave.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97330',
+    phone = '541-754-5965',
+    category = 'Restaurant',
+    subcategory = 'Coffee Shop',
+    website = NULL;
+***
+    {
+      "id": 7,
+      "ownerid": 7,
+      "name": "The Beanery Downtown",
+      "address": "500 SW 2nd St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-753-7442",
+      "category": "Restaurant",
+      "subcategory": "Coffee Shop"
+    },
+
+INSERT INTO businesses SET 
+    id = 7,
+    ownerid = 7,
+    name = 'The Beanery Downtown',
+    address = '500 SW 2nd St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97330',
+    phone = '541-753-7442',
+    category = 'Restaurant',
+    subcategory = 'Coffee Shop',
+    website = NULL;
+***
+    {
+      "id": 8,
+      "ownerid": 8,
+      "name": "Local Boyz",
+      "address": "1425 NW Monroe Ave.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-754-5338",
+      "category": "Restaurant",
+      "subcategory": "Hawaiian"
+    },
+
+***
+    {
+      "id": 9,
+      "ownerid": 9,
+      "name": "Darkside Cinema",
+      "address": "215 SW 4th St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-752-4161",
+      "category": "Entertainment",
+      "subcategory": "Movie Theater",
+      "website": "http://darksidecinema.com"
+    },
+
+INSERT INTO businesses SET 
+    id = 9,
+    ownerid = 9,
+    name = 'Darkside Cinema',
+    address = '215 SW 4th St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-752-4161',
+    category = 'Entertainment',
+    subcategory = 'Movie Theater',
+    website = 'http://darksidecinema.com';
+***
+    {
+      "id": 10,
+      "ownerid": 10,
+      "name": "The Book Bin",
+      "address": "215 SW 4th St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-752-0040",
+      "category": "Shopping",
+      "subcategory": "Book Store"
+    },
+
+
+INSERT INTO businesses SET 
+    id = 10,
+    ownerid = 10,
+    name = 'The Book Bin"',
+    address = '215 SW 4th St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-752-0040',
+    category = 'Shopping',
+    subcategory = 'Book Store',
+    website = NULL;
+***
+    {
+      "id": 11,
+      "ownerid": 11,
+      "name": "Cyclotopia",
+      "address": "435 SW 2nd St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-757-9694",
+      "category": "Shopping",
+      "subcategory": "Bicycle Shop"
+    },
+
+
+INSERT INTO businesses SET 
+    id = 11,
+    ownerid = 11,
+    name = 'Cyclotopia',
+    address = '453 SW 2nd St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-757-9694',
+    category = 'Shopping',
+    subcategory = 'Bicycle Store',
+    website = NULL;
+***
+    {
+      "id": 12,
+      "ownerid": 12,
+      "name": "Corvallis Cyclery",
+      "address": "344 SW 2nd St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-752-5952",
+      "category": "Shopping",
+      "subcategory": "Bicycle Shop"
+    },
+
+INSERT INTO businesses SET 
+    id = 12,
+    ownerid = 12,
+    name = 'Corvallis Cyclery',
+    address = '344 SW 2nd St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-752-5952',
+    category = 'Shopping',
+    subcategory = 'Bicycle Shop',
+    website = NULL;
+***
+    {
+      "id": 13,
+      "ownerid": 13,
+      "name": "Oregon Coffee & Tea",
+      "address": "215 NW Monroe Ave.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-752-2421",
+      "category": "Shopping",
+      "subcategory": "Tea House",
+      "website": "http://www.oregoncoffeeandtea.com"
+    },
+
+INSERT INTO businesses SET 
+    id = 13,
+    ownerid = 13,
+    name = 'Oregon Coffee & Tea',
+    address = '215 NW Monroe Ave.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-752-2421',
+    category = 'Shopping',
+    subcategory = 'Tea House',
+    website = 'http://www.oregoncoffeeandtea.com';
+***
+    {
+      "id": 14,
+      "ownerid": 14,
+      "name": "Spaeth Lumber",
+      "address": "1585 NW 9th St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-752-1930",
+      "category": "Shopping",
+      "subcategory": "Hardware"
+    },
+
+INSERT INTO businesses SET 
+    id = 14,
+    ownerid = 14,
+    name = 'Spaeth Lumber',
+    address = '1585 NW 9th St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97330',
+    phone = '541-752-1930',
+    category = 'Shopping',
+    subcategory = 'Hardware',
+    website = NULL;
+***
+    {
+      "id": 15,
+      "ownerid": 15,
+      "name": "New Morning Bakery",
+      "address": "219 SW 2nd St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-754-0181",
+      "category": "Restaurant",
+      "subcategory": "Bakery"
+    },
+
+INSERT INTO businesses SET 
+    id = 15,
+    ownerid = 15,
+    name = 'New Morning Bakery',
+    address = '219 SW 2nd St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-754-0181',
+    category = 'Restaurant',
+    subcategory = 'Bakery',
+    website = NULL;
+***
+    {
+      "id": 16,
+      "ownerid": 3,
+      "name": "First Alternative Co-op South Store",
+      "address": "1007 SE 3rd St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-753-3115",
+      "category": "Shopping",
+      "subcategory": "Groceries"
+    },
+
+INSERT INTO businesses SET 
+    id = 16,
+    ownerid = 3,
+    name = 'First Alternative Co-op South Store',
+    address = '1007 SE 3rd St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-753-3115',
+    category = 'Shopping',
+    subcategory = 'Groceries',
+    website = NULL;
+***
+    {
+      "id": 17,
+      "ownerid": 7,
+      "name": "The Beanery Monroe",
+      "address": "2541 NW Monroe Ave.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97330",
+      "phone": "541-757-0828",
+      "category": "Restaurant",
+      "subcategory": "Coffee Shop"
+    },
+
+INSERT INTO businesses SET 
+    id = 17,
+    ownerid = 7,
+    name = 'The Beanery Monroe',
+    address = '2541 NW Monroe Ave.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97330',
+    phone = '541-757-0828',
+    category = 'Restaurant',
+    subcategory = 'Coffee Shop',
+    website = NULL;
+***
+    {
+      "id": 18,
+      "ownerid": 0,
+      "name": "Block 15 Brewery & Tap Room",
+      "address": "3415 SW Deschutes St.",
+      "city": "Corvallis",
+      "state": "OR",
+      "zip": "97333",
+      "phone": "541-752-2337",
+      "category": "Restaurant",
+      "subcategory": "Brewpub",
+      "website": "http://block15.com"
+    }
+
+INSERT INTO businesses SET 
+    id = 18,
+    ownerid = 0,
+    name = 'Block 15 Brewery & Tap Room',
+    address = '3415 SW Deschutes St.',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-752-2337',
+    category = 'Restaurant',
+    subcategory = 'Brewpub',
+    website = 'http://block15.com';
+  ]
+
++----+---------+-------------------------------------+-----------------------+-----------+-------+-------+--------------+---------------+----------------+-----------------------------------+
+| id | ownerid | name                                | address               | city      | state | zip   | phone        | category      | subcategory    | website                           |
++----+---------+-------------------------------------+-----------------------+-----------+-------+-------+--------------+---------------+----------------+-----------------------------------+
+|  0 |       0 | Block 15                            | 300 SW Jefferson Ave. | Corvallis | OR    | 97333 | 541-758-2077 | Restaurant    | Brewpub        | http://block15.com                |
+|  1 |       1 | Corvallis Brewing Supply            | 119 SW 4th St..       | Corvallis | OR    | 97333 | 541-758-1674 | Shopping      | Brewing Supply | http://www.lickspigot.com         |
+|  2 |       2 | Robnett's Hardware                  | 400 SW 2nd St.        | Corvallis | OR    | 97333 | 541-758-5531 | Shopping      | Hardware       | NULL                              |
+|  3 |       3 | First Alternative Co-op North Store | 2855 NW Grant Ave.    | Corvallis | OR    | 97333 | 541-452-3115 | Shopping      | Groceries      | NULL                              |
+|  4 |       4 | WinCo Foods                         | 2335 NW Kings Blvd.   | Corvallis | OR    | 97330 | 541-753-7002 | Shopping      | Groceries      | NULL                              |
+|  5 |       5 | Fred Meyer                          | 777 NW Kings Blvd.    | Corvallis | OR    | 97330 | 541-753-9116 | Shopping      | Groceries      | NULL                              |
+|  6 |       6 | Interzone                           | 1563 NW Monroe Ave.   | Corvallis | OR    | 97330 | 541-754-5965 | Restaurant    | Coffee Shop    | NULL                              |
+|  7 |       7 | The Beanery Downtown                | 500 SW 2nd St.        | Corvallis | OR    | 97330 | 541-753-7442 | Restaurant    | Coffee Shop    | NULL                              |
+|  8 |       8 | Local Boyz                          | 1425 NW Monroe Ave.   | Corvallis | OR    | 97330 | 541-754-5338 | Restaurant    | Hawaiian       | NULL                              |
+|  9 |       9 | Darkside Cinema                     | 215 SW 4th St.        | Corvallis | OR    | 97333 | 541-752-4161 | Entertainment | Movie Theater  | http://darksidecinema.com         |
+| 10 |      10 | The Book Bin                        | 215 SW 4th St.        | Corvallis | OR    | 97333 | 541-752-0040 | Shopping      | Book Store     | NULL                              |
+| 11 |      11 | Cyclotopia                          | 453 SW 2nd St.        | Corvallis | OR    | 97333 | 541-757-9694 | Shopping      | Bicycle Store  | NULL                              |
+| 12 |      12 | Corvallis Cyclery                   | 344 SW 2nd St.        | Corvallis | OR    | 97333 | 541-752-5952 | Shopping      | Bicycle Shop   | NULL                              |
+| 13 |      13 | Oregon Coffee & Tea                 | 215 NW Monroe Ave.    | Corvallis | OR    | 97333 | 541-752-2421 | Shopping      | Tea House      | http://www.oregoncoffeeandtea.com |
+| 14 |      14 | Spaeth Lumber                       | 1585 NW 9th St.       | Corvallis | OR    | 97330 | 541-752-1930 | Shopping      | Hardware       | NULL                              |
+| 15 |      15 | New Morning Bakery                  | 219 SW 2nd St.        | Corvallis | OR    | 97333 | 541-754-0181 | Restaurant    | Bakery         | NULL                              |
+| 16 |       3 | First Alternative Co-op South Store | 1007 SE 3rd St.       | Corvallis | OR    | 97333 | 541-753-3115 | Shopping      | Groceries      | NULL                              |
+| 17 |       7 | The Beanery Monroe                  | 2541 NW Monroe Ave.   | Corvallis | OR    | 97330 | 541-757-0828 | Restaurant    | Coffee Shop    | NULL                              |
+| 18 |       0 | Block 15 Brewery & Tap Room         | 3415 SW Deschutes St. | Corvallis | OR    | 97333 | 541-752-2337 | Restaurant    | Brewpub        | http://block15.com                |
++----+---------+-------------------------------------+-----------------------+-----------+-------+-------+--------------+---------------+----------------+-----------------------------------+
+
+
+// Create photos table
+    CREATE TABLE photos (
+      id int(64) NOT NULL,
+      userid int(64) NOT NULL,
+      businessid int(64) NOT NULL,
+      caption VARCHAR(255),
+      PRIMARY KEY (id),
+      FOREIGN KEY (businessid)
+            REFERENCES businesses(id)
+  );
+
+
+    {
+      "id": 0,
+      "userid": 7,
+      "businessid": 8,
+      "caption": "This is my dinner."
+    },
+
+INSERT INTO photos SET 
+    id = 0,
+    userid = 7,
+    businessid = 8,
+    caption = 'This is my dinner.';
+***
+    {
+      "id": 1,
+      "userid": 25,
+      "businessid": 2
+    },
+
+INSERT INTO photos SET 
+    id = 1,
+    userid = 25,
+    businessid = 2,
+    caption = NULL;
+***
+    {
+      "id": 2,
+      "userid": 26,
+      "businessid": 1,
+      "caption": "Hops"
+    },
+
+
+INSERT INTO photos SET 
+    id = 2,
+    userid = 26,
+    businessid = 1,
+    caption = 'Hops';
+***
+    {
+      "id": 3,
+      "userid": 21,
+      "businessid": 14
+    },
+
+
+INSERT INTO photos SET 
+    id = 3,
+    userid = 21,
+    businessid = 14,
+    caption = NULL;
+***
+    {
+      "id": 4,
+      "userid": 28,
+      "businessid": 18,
+      "caption": "Sticky Hands"
+    },
+
+INSERT INTO photos SET 
+    id = 4,
+    userid = 28,
+    businessid = 18,
+    caption = 'Sticky Hands';
+***
+    {
+      "id": 5,
+      "userid": 21,
+      "businessid": 9,
+      "caption": "Popcorn!"
+    },
+
+INSERT INTO photos SET 
+    id = 5,
+    userid = 21,
+    businessid = 9,
+    caption = 'Popcorn!';
+***
+    {
+      "id": 6,
+      "userid": 26,
+      "businessid": 8
+    },
+
+INSERT INTO photos SET 
+    id = 6,
+    userid = 26,
+    businessid = 8,
+    caption = NULL;
+***
+    {
+      "id": 7,
+      "userid": 25,
+      "businessid": 18,
+      "caption": "Big fermentor"
+    },
+
+INSERT INTO photos SET 
+    id = 7,
+    userid = 25,
+    businessid = 18,
+    caption = 'Big fermentor';
+***
+    {
+      "id": 8,
+      "userid": 20,
+      "businessid": 2
+    },
+
+
+INSERT INTO photos SET 
+    id = 8,
+    userid = 20,
+    businessid = 2,
+    caption = NULL;
+***
+    {
+      "id": 9,
+      "userid": 6,
+      "businessid": 15,
+      "caption": "Cake!"
+    }
+
+INSERT INTO photos SET 
+    id = 9,
+    userid = 6,
+    businessid = 15,
+    caption = "Cake!";
+
++----+--------+------------+--------------------+
+| id | userid | businessid | caption            |
++----+--------+------------+--------------------+
+|  0 |      7 |          8 | This is my dinner. |
+|  1 |     25 |          2 | NULL               |
+|  2 |     26 |          1 | Hops               |
+|  3 |     21 |         14 | NULL               |
+|  4 |     28 |         18 | Sticky Hands       |
+|  5 |     21 |          9 | Popcorn!           |
+|  6 |     26 |          8 | NULL               |
+|  7 |     25 |         18 | Big fermentor      |
+|  8 |     20 |          2 | NULL               |
+|  9 |      6 |         15 | Cake!              |
++----+--------+------------+--------------------+
+
+
+// Create photos table
+    CREATE TABLE reviews (
+      id int(64) NOT NULL,
+      userid int(64) NOT NULL,
+      businessid int(64) NOT NULL,
+      dollars int(64) NOT NULL,
+      stars VARCHAR(255) NOT NULL,
+      review VARCHAR(255),
+      PRIMARY KEY (id),
+      FOREIGN KEY (businessid)
+            REFERENCES businesses(id)
+  );
+
+
+{
+      "id": 0,
+      "userid": 7,
+      "businessid": 8,
+      "dollars": 1,
+      "stars": 4.5,
+      "review": "Cheap, delicious food."
+    },
+
+INSERT INTO reviews SET 
+    id = 0,
+    userid = 7,
+    businessid = 8,
+    dollars = 1,
+    stars = '4.5',
+    review = 'Cheap, delicious food.';
+***
+    {
+      "id": 1,
+      "userid": 25,
+      "businessid": 2,
+      "dollars": 1,
+      "stars": 4,
+      "review": "How many fasteners can one room hold?"
+    },
+
+
+INSERT INTO reviews SET 
+    id = 1,
+    userid = 25,
+    businessid = 2,
+    dollars = 1,
+    stars = '4',
+    review = 'How many fasteners can one room hold?';
+***
+    {
+      "id": 2,
+      "userid": 26,
+      "businessid": 1,
+      "dollars": 1,
+      "stars": 5,
+      "review": "Joel, the owner, is super friendly and helpful."
+    },
+
+INSERT INTO reviews SET 
+    id = 2,
+    userid = 26,
+    businessid = 1,
+    dollars = 1,
+    stars = '5',
+    review = 'Joel, the owner, is super friendly and helpful.';
+***
+    {
+      "id": 3,
+      "userid": 21,
+      "businessid": 14,
+      "dollars": 2,
+      "stars": 4
+    },
+
+INSERT INTO reviews SET 
+    id = 3,
+    userid = 21,
+    businessid = 14,
+    dollars = 2,
+    stars = '4',
+    review = NULL;
+***
+    {
+      "id": 4,
+      "userid": 28,
+      "businessid": 18,
+      "dollars": 1,
+      "stars": 4,
+      "review": "Good beer, good food, though limited selection."
+    },
+
+INSERT INTO reviews SET 
+    id = 4,
+    userid = 28,
+    businessid = 18,
+    dollars = 1,
+    stars = '4',
+    review = 'Good beer, good food, though limited selection.';
+***
+    {
+      "id": 5,
+      "userid": 21,
+      "businessid": 9,
+      "dollars": 1,
+      "stars": 5,
+      "review": "A Corvallis gem."
+    },
+
+
+INSERT INTO reviews SET 
+    id = 5,
+    userid = 21,
+    businessid = 9,
+    dollars = 1,
+    stars = '5',
+    review = 'A Corvallis gem.';
+***
+    {
+      "id": 6,
+      "userid": 26,
+      "businessid": 8,
+      "dollars": 1,
+      "stars": 5,
+      "review": "Yummmmmmm!"
+    },
+
+INSERT INTO reviews SET 
+    id = 6,
+    userid = 26,
+    businessid = 8,
+    dollars = 1,
+    stars = '5',
+    review = 'Yummmmmmm!';
+***
+    {
+      "id": 7,
+      "userid": 25,
+      "businessid": 18,
+      "dollars": 2,
+      "stars": 4.5
+    },
+
+INSERT INTO reviews SET 
+    id = 7,
+    userid = 25,
+    businessid = 18,
+    dollars = 2,
+    stars = '4.5',
+    review = NULL;
+***
+    {
+      "id": 8,
+      "userid": 20,
+      "businessid": 2,
+      "dollars": 2,
+      "stars": 4
+    },
+
+INSERT INTO reviews SET 
+    id = 8,
+    userid = 20,
+    businessid = 2,
+    dollars = 2,
+    stars = '4',
+    review = NULL;
+***
+    {
+      "id": 9,
+      "userid": 6,
+      "businessid": 15,
+      "dollars": 2,
+      "stars": 5,
+      "review": "Try the hazlenut torte.  It's the best!"
+    }
+
+INSERT INTO reviews SET 
+    id = 9,
+    userid = 6,
+    businessid = 15,
+    dollars = 2,
+    stars = '5',
+    review = 'Try the hazlenut torte.  It''s the best!';
+
++----+--------+------------+---------+-------+-------------------------------------------------+
+| id | userid | businessid | dollars | stars | review                                          |
++----+--------+------------+---------+-------+-------------------------------------------------+
+|  0 |      7 |          8 |       1 | 4.5   | Cheap, delicious food.                          |
+|  1 |     25 |          2 |       1 | 4     | How many fasteners can one room hold?           |
+|  2 |     26 |          1 |       1 | 5     | Joel, the owner, is super friendly and helpful. |
+|  3 |     21 |         14 |       2 | 4     | NULL                                            |
+|  4 |     28 |         18 |       1 | 4     | Good beer, good food, though limited selection. |
+|  5 |     21 |          9 |       1 | 5     | A Corvallis gem.                                |
+|  6 |     26 |          8 |       1 | 5     | Yummmmmmm!                                      |
+|  7 |     25 |         18 |       2 | 4.5   | NULL                                            |
+|  8 |     20 |          2 |       2 | 4     | NULL                                            |
+|  9 |      6 |         15 |       2 | 5     | Try the hazlenut torte.  It's the best!         |
++----+--------+------------+---------+-------+-------------------------------------------------+
+
+
+
+SELECT
+    TABLE_NAME,
+    COLUMN_NAME,
+    CONSTRAINT_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM
+    INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE
+	REFERENCED_TABLE_SCHEMA = 'project_2'
+    AND REFERENCED_TABLE_NAME = 'businesses';
+
++------------+-------------+-----------------+-----------------------+------------------------+
+| TABLE_NAME | COLUMN_NAME | CONSTRAINT_NAME | REFERENCED_TABLE_NAME | REFERENCED_COLUMN_NAME |
++------------+-------------+-----------------+-----------------------+------------------------+
+| photos     | businessid  | photos_ibfk_1   | businesses            | id                     |
+| reviews    | businessid  | reviews_ibfk_1  | businesses            | id                     |
++------------+-------------+-----------------+-----------------------+------------------------+
