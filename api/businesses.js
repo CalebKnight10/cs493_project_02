@@ -158,10 +158,16 @@ router.delete('/:businessid', function (req, res, next) {
 });
 
 
-async function getBusinessesCount() {
-  // SELECT COUNT(*) FROM businesses;
+router.get('/', async (req, res) => {
   const [ results ] = await mysqlPool.query(
     "SELECT COUNT(*) AS count FROM lodgings"
     );
-
-}
+  try {
+    const businessPage = await getPage(parseInt(req.query.page) || 1, businesses);
+    res.status(200).send(businessPage);
+  } catch (err) {
+    res.status(500).json({
+      error: "Error fetching business list. Try again later."
+    });
+  }
+});

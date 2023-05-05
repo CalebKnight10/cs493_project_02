@@ -520,6 +520,20 @@ INSERT INTO businesses SET
     category = 'Restaurant',
     subcategory = 'Brewpub',
     website = 'http://block15.com';
+
+
+INSERT INTO businesses SET 
+    id = 20,
+    ownerid = 0,
+    name = 'Test',
+    address = 'TEST',
+    city = 'Corvallis',
+    state = 'OR',
+    zip = '97333',
+    phone = '541-752-2337',
+    category = 'TEST',
+    subcategory = 'Brewpub',
+    website = NULL;
   ]
 
 +----+---------+-------------------------------------+-----------------------+-----------+-------+-------+--------------+---------------+----------------+-----------------------------------+
@@ -922,3 +936,7 @@ WHERE
 | photos     | businessid  | photos_ibfk_1   | businesses            | id                     |
 | reviews    | businessid  | reviews_ibfk_1  | businesses            | id                     |
 +------------+-------------+-----------------+-----------------------+------------------------+
+
+
+
+
