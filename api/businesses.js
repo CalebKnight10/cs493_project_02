@@ -42,7 +42,7 @@ router.get('/', function (req, res) {
 
   /*
    * Calculate starting and ending indices of businesses on requested page and
-   * slice out the corresponsing sub-array of busibesses.
+   * slice out the corresponsing sub-array of businesses.
    */
   const start = (page - 1) * numPerPage;
   const end = start + numPerPage;
@@ -156,3 +156,12 @@ router.delete('/:businessid', function (req, res, next) {
     next();
   }
 });
+
+
+async function getBusinessesCount() {
+  // SELECT COUNT(*) FROM businesses;
+  const [ results ] = await mysqlPool.query(
+    "SELECT COUNT(*) AS count FROM lodgings"
+    );
+
+}
