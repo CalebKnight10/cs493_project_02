@@ -204,17 +204,28 @@ router.put('/:businessid', async (req, res, next) => {
   }
 });
 
-
+async function deleteBusiness(businessid) {
+  const [ result ] = await mysqlPool.query(
+    'DELETE FROM businesses WHERE id = ?',
+    [ businessid ]
+  );
+  return result.affectedRows > 0;
+}
 
 /*
  * Route to delete a business.
  */
-router.delete('/:businessid', function (req, res, next) {
-  const businessid = parseInt(req.params.businessid);
-  if (businesses[businessid]) {
-    businesses[businessid] = null;
-    res.status(204).end();
-  } else {
-    next();
+router.delete('/:businessid', async (req, res, next) => {
+  try {
+    const deleteConfirm = await deleteBusiness(parseInt(req.params.id));
+    if(deleteConfirm) {
+      res.status(204).end();
+    } else {
+        next();
+    }
+  } catch (err) {
+      res.status(500).send({
+        error: 'Not able to delete business.'
+      });
   }
 });
