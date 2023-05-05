@@ -25,53 +25,9 @@ const businessSchema = {
   email: { required: false }
 };
 
-// /*
-//  * Route to return a list of businesses.
-//  */
-// router.get('/', function (req, res) {
-//   /*
-//    * Compute page number based on optional query string parameter `page`.
-//    * Make sure page is within allowed bounds.
-//    */
-//   let page = parseInt(req.query.page) || 1;
-//   const numPerPage = 10;
-//   const lastPage = Math.ceil(businesses.length / numPerPage);
-//   page = page > lastPage ? lastPage : page;
-//   page = page < 1 ? 1 : page;
-//   /*
-//    * Calculate starting and ending indices of businesses on requested page and
-//    * slice out the corresponsing sub-array of businesses.
-//    */
-//   const start = (page - 1) * numPerPage;
-//   const end = start + numPerPage;
-//   const pageBusinesses = businesses.slice(start, end);
-//   /*
-//    * Generate HATEOAS links for surrounding pages.
-//    */
-//   const links = {};
-//   if (page < lastPage) {
-//     links.nextPage = `/businesses?page=${page + 1}`;
-//     links.lastPage = `/businesses?page=${lastPage}`;
-//   }
-//   if (page > 1) {
-//     links.prevPage = `/businesses?page=${page - 1}`;
-//     links.firstPage = '/businesses?page=1';
-//   }
-//   /*
-//    * Construct and send response.
-//    */
-//   res.status(200).json({
-//     businesses: pageBusinesses,
-//     pageNumber: page,
-//     totalPages: lastPage,
-//     pageSize: numPerPage,
-//     totalCount: businesses.length,
-//     links: links
-//   });
-// });
-
-
-// Route to get list of businesses (use mysqlquery page to handle getting the page and the count)
+/*
+ * Route to return a list of businesses.
+ */
 router.get('/', async (req, res) => {
   // const [ results ] = await mysqlPool.query(
   //   "SELECT COUNT(*) AS count FROM lodgings"
@@ -81,14 +37,12 @@ router.get('/', async (req, res) => {
     const businessPage = await getPage(parseInt(req.query.page) || 1, businesses);
     res.status(200).send(businessPage);
   } catch (err) {
-    res.status(500).json({
+    res.status(500).send({
       error: "Error fetching business list. Try again later."
     });
   }
 });
 
-
-// Create new business
 async function createNewBusiness(business) {
   const validBusiness = extractValidFields(
     business,
@@ -99,31 +53,31 @@ async function createNewBusiness(business) {
     validBusiness
   );
   return result.insertId;
-
+}
   /*
    * Route to create a new business.
    */
-  router.post('/', async (req, res, next) => {
-    if (validateAgainstSchema(req.body, businessSchema)) {
-      try {
-        const id = await createNewBusiness(req.body);
-        res.status(201).send({
-          id: id,
-          links: {
-            business: `/businesses/${business.id}`
-          } });
-        } catch (err) {
-          res.status (500).send({
-            error: "Error inserting new business into DataBase."
-          });
-        }
-      } else {
-      res.status(400).json({
-        error: "Request body is not a valid business object"
-      });
-    }
-  });
-}
+router.post('/', async (req, res, next) => {
+  if (validateAgainstSchema(req.body, businessSchema)) {
+    try {
+      const id = await createNewBusiness(req.body);
+      res.status(201).send({
+        id: id,
+        links: {
+          business: `/businesses/${business.id}`
+        } });
+      } catch (err) {
+        res.status (500).send({
+          error: "Error inserting new business into DataBase."
+        });
+      }
+    } else {
+    res.status(400).send({
+      error: "Request body is not a valid business object"
+    });
+  }
+});
+
 
 async function getBusinessesId(businessid) {
   const [ results ] = await mysqlPool.query(
@@ -229,3 +183,11 @@ router.delete('/:businessid', async (req, res, next) => {
       });
   }
 });
+
+async function getBusinessFromUserId(userid) {
+  const [ results ] = await mysqlPool.query(
+    'SELECT * FROM businesses WHERE userid = ?',
+    [ userid ],
+  );
+  return results[0];
+}

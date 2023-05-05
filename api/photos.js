@@ -15,28 +15,43 @@ const photoSchema = {
   caption: { required: false }
 };
 
+async function createNewPhoto(photo) {
+  const validatedPhoto = extractValidFields(
+    photo,
+    photoSchema
+  );
+  const [ result ] = await mysqlPool.query(
+    'INSERT INTO photos SET ?',
+    validatedPhoto
+  );
+  return result.insertId;
+}
 
 /*
  * Route to create a new photo.
  */
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
   if (validateAgainstSchema(req.body, photoSchema)) {
-    const photo = extractValidFields(req.body, photoSchema);
-    photo.id = photos.length;
-    photos.push(photo);
-    res.status(201).json({
-      id: photo.id,
-      links: {
-        photo: `/photos/${photo.id}`,
-        business: `/businesses/${photo.businessid}`
+    try {
+      const id = await createNewPhoto(req.body);
+      res.status(201).send({
+        id: id,
+        links: {
+          photo: `/photos/${id}`,
+          business: `/businesses/${business.id}`
+        } });
+      } catch (err) {
+        res.status (500).send({
+          error: "Error inserting new photo into DataBase."
+        });
       }
-    });
-  } else {
-    res.status(400).json({
+    } else {
+    res.status(400).send({
       error: "Request body is not a valid photo object"
     });
   }
 });
+
 
 /*
  * Route to fetch info about a specific photo.
