@@ -52,16 +52,29 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+async function getPhotoID(photoID) {
+  const [ results ] = await mysqlPool.query(
+    'SELECT * FROM photos WHERE id = ?',
+    [ photoID ],
+  );
+  return results[0];
+}
 
 /*
  * Route to fetch info about a specific photo.
  */
-router.get('/:photoID', function (req, res, next) {
-  const photoID = parseInt(req.params.photoID);
-  if (photos[photoID]) {
-    res.status(200).json(photos[photoID]);
-  } else {
-    next();
+router.get('/:photoID', async (req, res, next) => {
+  try {
+    const photo = await getPhotoID(parseInt(req.params.id));
+    if (photo) {
+      res.status(200).send(photo);
+    } else {
+      next();
+    }
+  } catch (err) {
+    res.status(500).send({
+      error: "Error, not able to fetch photo."
+    });
   }
 });
 
