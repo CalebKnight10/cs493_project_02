@@ -25,56 +25,58 @@ const businessSchema = {
   email: { required: false }
 };
 
-/*
- * Route to return a list of businesses.
- */
-router.get('/', function (req, res) {
-  /*
-   * Compute page number based on optional query string parameter `page`.
-   * Make sure page is within allowed bounds.
-   */
-  let page = parseInt(req.query.page) || 1;
-  const numPerPage = 10;
-  const lastPage = Math.ceil(businesses.length / numPerPage);
-  page = page > lastPage ? lastPage : page;
-  page = page < 1 ? 1 : page;
-  /*
-   * Calculate starting and ending indices of businesses on requested page and
-   * slice out the corresponsing sub-array of businesses.
-   */
-  const start = (page - 1) * numPerPage;
-  const end = start + numPerPage;
-  const pageBusinesses = businesses.slice(start, end);
-  /*
-   * Generate HATEOAS links for surrounding pages.
-   */
-  const links = {};
-  if (page < lastPage) {
-    links.nextPage = `/businesses?page=${page + 1}`;
-    links.lastPage = `/businesses?page=${lastPage}`;
-  }
-  if (page > 1) {
-    links.prevPage = `/businesses?page=${page - 1}`;
-    links.firstPage = '/businesses?page=1';
-  }
-  /*
-   * Construct and send response.
-   */
-  res.status(200).json({
-    businesses: pageBusinesses,
-    pageNumber: page,
-    totalPages: lastPage,
-    pageSize: numPerPage,
-    totalCount: businesses.length,
-    links: links
-  });
+// /*
+//  * Route to return a list of businesses.
+//  */
+// router.get('/', function (req, res) {
+//   /*
+//    * Compute page number based on optional query string parameter `page`.
+//    * Make sure page is within allowed bounds.
+//    */
+//   let page = parseInt(req.query.page) || 1;
+//   const numPerPage = 10;
+//   const lastPage = Math.ceil(businesses.length / numPerPage);
+//   page = page > lastPage ? lastPage : page;
+//   page = page < 1 ? 1 : page;
+//   /*
+//    * Calculate starting and ending indices of businesses on requested page and
+//    * slice out the corresponsing sub-array of businesses.
+//    */
+//   const start = (page - 1) * numPerPage;
+//   const end = start + numPerPage;
+//   const pageBusinesses = businesses.slice(start, end);
+//   /*
+//    * Generate HATEOAS links for surrounding pages.
+//    */
+//   const links = {};
+//   if (page < lastPage) {
+//     links.nextPage = `/businesses?page=${page + 1}`;
+//     links.lastPage = `/businesses?page=${lastPage}`;
+//   }
+//   if (page > 1) {
+//     links.prevPage = `/businesses?page=${page - 1}`;
+//     links.firstPage = '/businesses?page=1';
+//   }
+//   /*
+//    * Construct and send response.
+//    */
+//   res.status(200).json({
+//     businesses: pageBusinesses,
+//     pageNumber: page,
+//     totalPages: lastPage,
+//     pageSize: numPerPage,
+//     totalCount: businesses.length,
+//     links: links
+//   });
+// });
 
-});
 
+// Route to get list of businesses (use mysqlquery page to handle getting the page and the count)
 router.get('/', async (req, res) => {
-  const [ results ] = await mysqlPool.query(
-    "SELECT COUNT(*) AS count FROM lodgings"
-    );
+  // const [ results ] = await mysqlPool.query(
+  //   "SELECT COUNT(*) AS count FROM lodgings"
+  //   );
+  const count = getCounts(businesses);
   try {
     const businessPage = await getPage(parseInt(req.query.page) || 1, businesses);
     res.status(200).send(businessPage);
@@ -123,26 +125,45 @@ async function createNewBusiness(business) {
   });
 }
 
+async function getBusinessesId(businessid) {
+  const [ results ] = await mysqlPool.query(
+    'SELECT * FROM businesses WHERE id = ?',
+    [ businessid ],
+  );
+  return results[0];
+}
+
 /*
  * Route to fetch info about a specific business.
  */
-router.get('/:businessid', function (req, res, next) {
-  const businessid = parseInt(req.params.businessid);
-  if (businesses[businessid]) {
-    /*
-     * Find all reviews and photos for the specified business and create a
-     * new object containing all of the business data, including reviews and
-     * photos.
-     */
-    const business = {
-      reviews: reviews.filter(review => review && review.businessid === businessid),
-      photos: photos.filter(photo => photo && photo.businessid === businessid)
-    };
-    Object.assign(business, businesses[businessid]);
-    res.status(200).json(business);
-  } else {
-    next();
+router.get('/:businessid', async (req, res, next) => {
+  try {
+    const business = await getBusinessesId(parseInt(req.params.id));
+    if (business) {
+      res.status(200).send(business);
+    } else {
+      next();
+    }
+  } catch (err) {
+    res.status(500).send({
+      error: "Error, not able to fetch business."
+    });
   }
+      /*
+       * Find all reviews and photos for the specified business and create a
+       * new object containing all of the business data, including reviews and
+       * photos.
+       */
+  //     const business = {
+  //       reviews: reviews.filter(review => review && review.businessid === businessid),
+  //       photos: photos.filter(photo => photo && photo.businessid === businessid)
+  //     };
+  //     Object.assign(business, businesses[businessid]);
+  //     res.status(200).json(business);
+  //   } else {
+  //     next();
+  //   }
+  //  }
 });
 
 /*
