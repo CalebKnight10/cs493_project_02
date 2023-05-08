@@ -2,8 +2,14 @@ const router = require('express').Router();
 const { validateAgainstSchema, extractValidFields } = require('../lib/validation');
 
 const businesses = require('../data/businesses');
-const { reviews } = require('./reviews');
-const { photos } = require('./photos');
+// const { reviews } = require('./reviews');
+// const { photos } = require('./photos');
+
+const getCount = require('../lib/mysqlquery.js');
+const getPage = require('../lib/mysqlquery.js');
+
+// import { application } from "express";
+const mysqlPool = require('../lib/mysqlpool.js');
 
 exports.router = router;
 exports.businesses = businesses;
@@ -29,10 +35,10 @@ const businessSchema = {
  * Route to return a list of businesses.
  */
 router.get('/', async (req, res) => {
-  // const [ results ] = await mysqlPool.query(
-  //   "SELECT COUNT(*) AS count FROM lodgings"
-  //   );
-  const count = getCounts(businesses);
+  const [ results ] = await mysqlPool.query(
+    "SELECT COUNT(*) AS count FROM lodgings"
+    );
+  // const count = getCount(businesses);
   try {
     const businessPage = await getPage(parseInt(req.query.page) || 1, businesses);
     res.status(200).send(businessPage);
