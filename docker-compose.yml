@@ -1,0 +1,21 @@
+version: '1'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_DB=project_2
+      - MYSQL_USER=project_2
+      - MYSQL_PASSWORD=kels
+    ports:
+      - "8000:8000"
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=project_2
+      - MYSQL_USER=project_2
+      - MYSQL_PASSWORD=kels
