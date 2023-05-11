@@ -5,7 +5,7 @@ const businesses = require('../data/businesses');
 const { reviews } = require('./reviews');
 const { photos } = require('./photos');
 
-const mysqlPool = require('../lib/mysqlpool.js');
+const mysqlPool = require('../lib/mysqlPool.js');
 
 exports.router = router;
 exports.businesses = businesses;

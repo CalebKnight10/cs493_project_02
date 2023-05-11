@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { validateAgainstSchema, extractValidFields } = require('../lib/validation');
 
 const photos = require('../data/photos');
-const mysqlPool = require('../lib/mysqlpool.js');
+const mysqlPool = require('../lib/mysqlPool.js');
 
 exports.router = router;
 exports.photos = photos;
