@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { validateAgainstSchema, extractValidFields } = require('../lib/validation');
 
 const photos = require('../data/photos');
+const mysqlPool = require('../lib/mysqlpool.js');
 
 exports.router = router;
 exports.photos = photos;
@@ -63,17 +64,17 @@ async function getphotoId(photoId) {
 /*
  * Route to fetch info about a specific photo.
  */
-router.get('/:photoId', async (req, res, next) => {
+router.get('/:photoId', async function (req, res, next) {
   try {
-    const photo = await getphotoId(parseInt(req.params.id));
+    const photo = await getphotoId(parseInt(req.params.photoId));
     if (photo) {
-      res.status(200).send(photo);
+      res.status(200).json(photo);
     } else {
       next();
     }
   } catch (err) {
     res.status(500).send({
-      error: "Error, not able to fetch photo."
+      error: err
     });
   }
 });

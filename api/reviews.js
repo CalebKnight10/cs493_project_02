@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { validateAgainstSchema, extractValidFields } = require('../lib/validation');
 
 const reviews = require('../data/reviews');
+const mysqlPool = require('../lib/mysqlpool.js');
 
 exports.router = router;
 exports.reviews = reviews;
@@ -63,7 +64,7 @@ async function getReviews(reviewID) {
 router.get('/:reviewID', async (req, res, next) => {
   try {
     const review = await
-    getReviews(parseInt(req.params.id));
+    getReviews(parseInt(req.params.reviewID));
     if (review) {
       res.status(200).send(review);
     } else {
@@ -132,7 +133,6 @@ router.delete('/:reviewID', async (req, res, next) => {
   try {
     const deleteSuccessful = await
         deleteReview(parseInt(req.params.id));
-
     if (deleteSuccessful) {
             res.status(204).end();
     } else {

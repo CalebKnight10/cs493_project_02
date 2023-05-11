@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 exports.router = router;
+const mysqlPool = require('../lib/mysqlpool.js');
 
 const { businesses } = require('./businesses');
 const { reviews } = require('./reviews');
